@@ -40,22 +40,17 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);	
-		String relatedtype = request.getParameter("checked");
+		String relatedtype = request.getParameter("select");
 		String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 	    request.getSession().setAttribute("username", username);
 	    request.getSession().setAttribute("password", password);
 	    String page = null;
-		if (loginService.checklogin(username,password)){
-			/*if(relatedtype=="Student"){
-	    	  page ="pages/scheduleofclasses.jsp";
-			}else{
-				page ="pages/scheduleofclasses.jsp";
-			}*/
-			 page ="pages/scheduleofclasses.jsp";
-	    }else{	   
-	    	page ="pages/login.jsp";}
-
+	if (loginService.checklogin(username,password)&&relatedtype.equals("Student")){page ="pages/scheduleofclasses.jsp";}
+	else if (loginService.checklogin(username,password)&&relatedtype.equals("Professor")){page ="pages/scheduleofclasses.jsp";}
+	else if (loginService.checklogin(username,password)&&relatedtype.equals("admin")){page ="pages/admin.jsp";}
+		
+		else{page ="pages/login.jsp";}
 	    response.sendRedirect(page);
 	}
 

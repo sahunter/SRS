@@ -59,7 +59,7 @@ public class scheduleOfClassServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String  semester=request.getParameter("semester");
-		 SectionDao sectionDao =  DaoFactory.createSectioneDao();
+		 SectionDao sectionDao =  DaoFactory.createSectionDao();
 		 ArrayList<Section> secs = new ArrayList<Section>();
 		 ArrayList<String> keys = new ArrayList<String>();
         HashMap<String, Section> sections = new HashMap<String, Section>();

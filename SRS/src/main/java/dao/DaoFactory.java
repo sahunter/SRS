@@ -28,7 +28,7 @@ public class DaoFactory {
 		return result;
 	}
 	
-	public static SectionDao createSectioneDao() {
+	public static SectionDao createSectionDao() {
 		SectionDao result = null;
 		try {
 			Object o = Class.forName(daoName + "." + "SectionDaoImpl").newInstance();

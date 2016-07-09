@@ -78,15 +78,16 @@ public class enrollCourseServlet extends HttpServlet {
 	    /*String ssn = null;
 		Student student =new Student(ssn);*/
 	    Student   student  =personDao.getLoginStuent(user);
-	    SectionDao sectionDao = DaoFactory.createSectioneDao();
-	    //Section section =new Section();
-	    
+	    SectionDao sectionDao = DaoFactory.createSectionDao();
+	    //Section section =new Section(); 
 	    Section   section  =sectionDao.findselectsection(semester, select);
 	    EnrollmentStatus status = section.enroll(student);
-	    
+	    ArrayList<Student> stu = new ArrayList<Student>();
+    	ArrayList<Section> secs = new ArrayList<Section>();
+    	ArrayList<TranscriptEntry> transcriptEntries = new ArrayList<TranscriptEntry>();
 	  //  HashMap<String, Section> sec = new HashMap<String, Section>();   
 	    TranscriptDao transcriptDao =  DaoFactory.createTranscriptDao();
-	    if(status.value().equals("Enrollment successful!")){
+	  ///  if(status.value().equals("Enrollment successful!")){
 	    	TranscriptEntry transcriptentry=new TranscriptEntry(student, null, section);
 	    	   transcriptDao.addTranscript(transcriptentry);
 	    	   HashMap<String, TranscriptEntry> enrollcourse = new HashMap<String, TranscriptEntry>();
@@ -98,15 +99,18 @@ public class enrollCourseServlet extends HttpServlet {
 			            TranscriptEntry value1=entry1.getValue(); 
 			           /* TranscriptEntry transcriptentry1 = new TranscriptEntry(null, null, null);
 		            	transcriptentry1.setTranscript(value1);*/
-		            	ArrayList<TranscriptEntry> transcriptEntries = new ArrayList<TranscriptEntry>();
+			           Student s= value1.getStudent();
+			           stu.add(s);   
+			           Section sec= value1.getSection();
+			           secs.add(sec);
 		            	transcriptEntries.add(value1);
-	    	            request.setAttribute("transcriptEntries", transcriptEntries);
-	    	            request.getRequestDispatcher("pages/enrollcourse.jsp").forward(request,response);
+	    	            
 	    	
 	    }
-	   
-	}
-	    if(status.value().equals("Enrollment failed;  section was full.  :op")){
+				request.setAttribute("section", secs);
+	            request.getRequestDispatcher("pages/enrollcourse.jsp").forward(request,response);
+	//}
+	   /* if(status.value().equals("Enrollment failed;  section was full.  :op")){
             String 	alert="Enrollment failed;  section was full.  :op";
             request.setAttribute("alert", alert);
    	 request.getRequestDispatcher("pages/enrollcourse.jsp").forward(request,response);
@@ -125,4 +129,4 @@ public class enrollCourseServlet extends HttpServlet {
    }else{
    	response.sendRedirect("pages/scheduleofclasses.jsp");
    }
-	}}
+	}*/}}

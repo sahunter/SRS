@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import dao.CourseDao;
 import model.Course;
 import model.CourseCatalog;
+import model.Professor;
 import util.DBUtil;
 
 public class CourseDaoImpl implements CourseDao {
@@ -138,9 +139,355 @@ public class CourseDaoImpl implements CourseDao {
 		}
 		return prerequisites;
 	}
+	@Override
+	public List<Course> searchCourse(Course course) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "select courseNo,courseName ,credits from Course ";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+		//	pstmt.setString(1, user.getUserName());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		try {
+			rs = pstmt.executeQuery();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ArrayList<Course> courses = new ArrayList<Course>();
+		try {
+			while(rs.next()){
+				course=new Course(null, null, 0);
+				course.setCourseNo(rs.getString("courseNo"));
+				course.setCourseName(rs.getString("courseName"));
+				course.setCredits(Double.valueOf(rs.getString("credits")));
+				courses.add(course);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}if(rs!=null){
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return courses;
+		}
+	@Override
+	public void addCourse(Course course) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "INSERT INTO Person(courseNo,courseName,credits) VALUES(?,?,?)";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	stmt.setString(1, course.getCourseNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(2, course.getCourseName());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(3, String.valueOf(course.getCredits()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	@Override
+	public void updateCourse(Course course) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "update Person set courseNo=?,courseName=?,credits=? where  courseNo=?";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		    try {
+		    	stmt.setString(1, course.getCourseNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(2, course.getCourseName());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+		    	stmt.setString(3, String.valueOf(course.getCredits()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+		    	stmt.setString(4, course.getCourseNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	@Override
+	public void deleteCourse(Course course) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "DELETE FROM Person WHERE courseNo=?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+		//	pstmt.setString(1, user.getUserName());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	pstmt.setString(1, course.getCourseNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 try {
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	}
+	@Override
+	public void addPrerequisite(String ID,String presentcourse,String  prerequisite) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "INSERT INTO Prerequisite(ID,presentcourse,prerequisite) VALUES(?,?,?)";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+	    	stmt.setString(1, ID);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	stmt.setString(2, presentcourse);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(3, prerequisite);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	@Override
+	public void updatePrerequisite(String ID,String presentcourse,String  prerequisite) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "update Prerequisite set ID=?,presentcourse=?,prerequisite=?where ID=?";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+	    	stmt.setString(1, ID);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	stmt.setString(2, presentcourse);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(3, prerequisite);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 
 
-	
+	@Override
+	public void deletePrerequisite(String ID, String presentcourse, String prerequisite1) {
+		// TODO Auto-generated method stub
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "DELETE FROM Prerequisite WHERE ID=?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+		//	pstmt.setString(1, user.getUserName());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	pstmt.setString(1, ID);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 try {
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	}
 }
 	
 /*	

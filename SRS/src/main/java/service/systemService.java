@@ -21,12 +21,12 @@ import model.User;
 
 public class systemService {
 	
-	SectionDao sectionDao =  DaoFactory.createSectioneDao();
+	SectionDao sectionDao =  DaoFactory.createSectionDao();
 	CourseDao courseDao =  DaoFactory.createCourseDao();
 	UserDao userDao = DaoFactory.createUserDao();
 	PersonDao personDao =  DaoFactory.createPersonDao();
 	
-	EnrollmentStatus status = sec1.enroll(student);
-	reportStatus(status);
-	attemptToEnroll(s1, sec2);
+//	EnrollmentStatus status = sec1.enroll(student);
+	//reportStatus(status);
+	//attemptToEnroll(s1, sec2);
 }

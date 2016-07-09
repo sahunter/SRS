@@ -1,23 +1,18 @@
 package model;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 public class Course {
 	//------------
 	// Attributes.
 	//------------
-
 	private String courseNo;
 	private String courseName;
 	private double credits;
 	private ArrayList<Section> offeredAsSection; 
 	private ArrayList<Course> prerequisites; 
-	
 	//----------------
 	// Constructor(s).
 	//----------------
-
 	public Course(String cNo, String cName, double credits) {
 		setCourseNo(cNo);
 		setCourseName(cName);

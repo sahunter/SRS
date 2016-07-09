@@ -91,9 +91,24 @@
            </tr>
      
            <tr>
-               <td>
-                    
-               </td>
+       <td>
+							 <input name="select" type="radio" id="checkbox1" value="Student"/>学生
+							 
+							 
+						</td>
+                   <td>
+							 <input name="select" type="radio" id="checkbox1" value="Professor"/>教师
+							 
+							 
+						</td> 
+						<td>
+							 <input name="select" type="radio" id="checkbox1" value="admin"/>系主任
+							 
+							 
+						</td>
+           
+               </tr>
+               <tr>
                <td> 
                      <!--  <input value="valid" type="button" onclick="valid()">
                    <input value="setData" type="button" onclick="setData()">

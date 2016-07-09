@@ -8,5 +8,11 @@
 </head>
 <body>
 <h1>index</h1>
+<h1>成绩查询</h1>
+<form action="../updateProfessorSectionServlet" method="post">
+<input type="text" name="select">
+<input type="text" name="professor">
+<input type="submit" value="submit">
+</form>
 </body>
 </html>

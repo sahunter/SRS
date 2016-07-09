@@ -15,7 +15,7 @@ public class loginService {
 		 User user = new User();
 		    user.setUserName(username);
 		    user.setPassWord(password);
-		
+		  
 				if(user.getUserName()!=null && user.getPassWord()!=null){
 					UserDao userDao = DaoFactory.createUserDao();
 					User Acctount=new User();

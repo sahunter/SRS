@@ -18,6 +18,7 @@ import model.Course;
 import model.Professor;
 import model.Section;
 import model.Student;
+import model.TranscriptEntry;
 import util.DBUtil;
 
 public class SectionDaoImpl implements SectionDao{
@@ -219,9 +220,258 @@ public class SectionDaoImpl implements SectionDao{
 			return sections;
 	}
 
+	
+	@Override
+	public void updateProfessorSectionServlet(String fullSectionNo,String professor) {
+		// TODO Auto-generated method stub
+		
+		Connection Conn = DBUtil.getSqliteConnection();
+		
+		String sql ="update Section set professor=?  WHERE  FullSectionNo=?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	    try {
+	    	stmt.setString(1, professor);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    try {
+	    	stmt.setString(2, fullSectionNo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		try {
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public void addSection(String fullSectionNo,Section section,String  representedCourse) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "INSERT INTO Section(FullSectionNo,sectionNo,dayOfWeek,timeOfDay,room,seatingCapacity,representedCourse) VALUES(?,?,?,?,?,?,?)";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+	    	stmt.setString(1, fullSectionNo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	stmt.setInt(2, section.getSectionNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(3, String.valueOf(section.getDayOfWeek()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(4, String.valueOf(section.getTimeOfDay()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(5, section.getRoom());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setInt(6, section.getSeatingCapacity());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   
+		    try {
+		    	stmt.setString(7, representedCourse);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	@Override
+	public void updateSection(String fullSectionNo,Section section,	String representedCourse) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "update Section set FullSectionNo=?,sectionNo=?,dayOfWeek=?,timeOfDay=?,room=?,seatingCapacity=?,representedCourse=? where sectionNo=?";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+	    	stmt.setString(1, fullSectionNo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	stmt.setInt(2, section.getSectionNo());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(3, String.valueOf(section.getDayOfWeek()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(4, String.valueOf(section.getTimeOfDay()));
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(5, section.getRoom());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setInt(6, section.getSeatingCapacity());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   
+		    try {
+		    	stmt.setString(7, representedCourse);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	@Override
+	public void deleteSection(String FullSectionNo) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "DELETE FROM Section WHERE FullSectionNo=?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+		//	pstmt.setString(1, user.getUserName());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	pstmt.setString(1, FullSectionNo);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 try {
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 	}
 	
 	
+}
 	
 	
 	

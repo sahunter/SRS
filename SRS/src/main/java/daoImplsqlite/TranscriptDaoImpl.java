@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -175,7 +176,7 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		Connection Conn = DBUtil.getSqliteConnection();
 		Student  student=transcriptentry.getStudent();
 		Section  section=transcriptentry.getSection();
-		String sql = "INSERT INTO Transcript(sectionID,name) VALUES(?,?)";
+		String sql = "INSERT INTO Transcript(name,sectionID,grade) VALUES(?,?,?)";
 		PreparedStatement stmt = null;
 		try {
 			stmt = Conn.prepareStatement(sql);
@@ -184,13 +185,22 @@ public class TranscriptDaoImpl implements TranscriptDao{
 			e.printStackTrace();
 		}	
 	    try {
-			stmt.setString(1, student.getName());
+	    	stmt.setString(1, student.getName());
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    try {
-			stmt.setString(2,section.getFullSectionNo());
+	    	stmt.setString(2,transcriptentry.getGrade());
+	    
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    try {
+	    	stmt.setString(3,section.getFullSectionNo());
+	    
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,9 +224,6 @@ public class TranscriptDaoImpl implements TranscriptDao{
 			e.printStackTrace();
 		}
 	}
-
-	
-
 	@Override
 	public HashMap<String, TranscriptEntry> findTranscriptByStudent(User user) {
 		Connection Conn = DBUtil.getSqliteConnection();
@@ -228,8 +235,7 @@ public class TranscriptDaoImpl implements TranscriptDao{
 					    	   HashMap.Entry<String, TranscriptEntry> entry1 = (HashMap.Entry<String, TranscriptEntry>) iterator1.next();  
 					            String key1=entry1.getKey();  
 					            TranscriptEntry value1=entry1.getValue(); 	
-					            Student StudentOwner = new Student(null, null, null, null);
-					            StudentOwner  = value1.getStudent();
+					       Student  StudentOwner  = value1.getStudent();
 	        		            if(user.getUserName().equals(StudentOwner.getName())){
 	        		            	/*TranscriptEntry transcriptentry = new TranscriptEntry(null, null, null);
 	        		            	transcriptentry.setTranscript(value1);*/
@@ -241,8 +247,6 @@ public class TranscriptDaoImpl implements TranscriptDao{
 			return personnaltrancript;
 	}	
 		// TODO Auto-generated method stub
-
-
 	@Override
 	public HashMap<String, TranscriptEntry> findEnrollcourseByStudent(User user) {
 		Connection Conn = DBUtil.getSqliteConnection();
@@ -251,11 +255,10 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		 Set<HashMap.Entry<String, TranscriptEntry>> set1=personnaltrancript.entrySet();    	
 			for (Iterator<Entry<String, TranscriptEntry>> iterator1 = set1.iterator(); iterator1.hasNext();) {  
 		    	   HashMap.Entry<String, TranscriptEntry> entry1 = (HashMap.Entry<String, TranscriptEntry>) iterator1.next();  
-		            String key1=entry1.getKey();  
 		            TranscriptEntry value1=entry1.getValue(); 
 		           /* TranscriptEntry transcriptentry = new TranscriptEntry(null, null, null);
 	            	transcriptentry.setTranscript(value1);*/
-		            if(value1.getGrade()==null){
+		            if(value1.getGrade()==""){
 		            	Section section;
 		            	 section=value1.getSection();
 		            	 enrollcourse.put(user.getUserName()+ "-" + section.getFullSectionNo(), value1);	 	
@@ -265,5 +268,72 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		
 		return enrollcourse;
 	}
+	@Override
+	public void deleteTranscript(String name,String FullSectoinNo) {
+		// TODO Auto-generated method stub
+		Connection Conn = DBUtil.getSqliteConnection();	
+		String sql = "DELETE FROM Transcript WHERE name=? and sectionID=?  ";
+		PreparedStatement stmt = null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}	
+	//	 GuitarSpec spec = guitar.getSpec();
+	    try {
+			stmt.setString(1, name);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    try {
+			stmt.setString(2, FullSectoinNo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		try {
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+}
+	@Override
+	public HashMap<String, TranscriptEntry> searchTranscript(User user) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		HashMap<String, TranscriptEntry> personnaltrancript = new TranscriptDaoImpl().findTranscriptByStudent(user);
+		HashMap<String, TranscriptEntry> transcript=new HashMap<String, TranscriptEntry>();
+		 Set<HashMap.Entry<String, TranscriptEntry>> set1=personnaltrancript.entrySet();    	
+			for (Iterator<Entry<String, TranscriptEntry>> iterator1 = set1.iterator(); iterator1.hasNext();) {  
+		    	   HashMap.Entry<String, TranscriptEntry> entry1 = (HashMap.Entry<String, TranscriptEntry>) iterator1.next();  
+		            TranscriptEntry value1=entry1.getValue(); 
+		           /* TranscriptEntry transcriptentry = new TranscriptEntry(null, null, null);
+	            	transcriptentry.setTranscript(value1);*/
+		            if(value1.getGrade()!=""){
+		            	Section section;
+		            	 section=value1.getSection();
+		            	 transcript.put(user.getUserName()+ "-" + section.getFullSectionNo(), value1);	 	
+		            }
+		
+		            }
+		
+		return transcript;
+	}
 
+	
 }

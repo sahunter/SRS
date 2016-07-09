@@ -1,5 +1,5 @@
 
-<%@ page  import="util.*,java.util.*,model.*"  language="java" contentType="text/html; charset=utf-8"
+<%@ page  import="util.*,java.util.*,model.*,daoImplsqlite.*"  language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,7 +22,6 @@
 <body>
 
 <%									//?????????????
-     
      HttpServletRequest req = (HttpServletRequest) request; 
     %> 
 
@@ -86,17 +85,57 @@
 							<td>
 							CMP101 - 1
 						</td>
+							<td>
+							 <input name="select" type="checkbox" id="checkbox1" value="CMP283-1"/>
+						</td>
+							<td>
+							CMP101 - 1
+						</td>
 				</tbody>
 			</table>
 			
 			</form>
-			<c:forEach var="bh" items="${requestScope.secs}">
-			<table class="table">
+			<form>
+				<c:forEach var="bh" items="${requestScope.keys}">
+				<table class="table">
 				<thead>
 					<tr>
 					<th>
 						choose
 						</th>
+						<th>
+						section
+						</th>
+						
+						<!-- 	<th>
+							operation
+						</th>
+						<th>
+							operation
+						</th>		 -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							 <input name="select" type="checkbox" id="checkbox1" value="${bh}"/>
+						</td>
+					<td>
+							${bh}
+						</td>	
+						
+					</tr>		
+				</tbody>
+			</table>
+			</c:forEach>
+			</form>
+			<c:forEach var="bh" items="${requestScope.secs}">
+			<table class="table">
+				<thead>
+					<tr>
+					<!-- <th>
+						choose
+						</th> -->
 						<th>
 						sectionNo
 						</th>
@@ -126,16 +165,13 @@
 					</tr>
 				</thead>
 				<tbody>
-		
-			
-			
-					<tr>
-					<td>
-							 <input name="select" type="checkbox" id="checkbox1" value="${bh.sectionFullSectionNo}"/>
+				<tr>
+					<%-- <td>
+							 <input name="select" type="checkbox" id="checkbox1" value="${bh.FullSectionNo}"/>
 						</td>
 							<td>
 							${bh.sectionFullSectionNo}
-						</td>
+						</td> --%>
 							
 						
 					<td>
@@ -234,15 +270,15 @@
 			</c:forEach>	
 			<h1>刚选的课程	</h1>
 			<h2><%=request.getAttribute("alert")%></h2>
-			<c:forEach var="bh" items="${requestScope.transcriptEntries}">
+		   	<c:forEach var="bh" items="${requestScope.section}">   
 			<table class="table">
 				<thead>
 					<tr>
+					<th>
+						choose
+						</th>	
 						<th>
-						name
-						</th>
-						<th>
-						SectionFullSectionNo
+						FullSectionNo
 						</th>
 						
 					
@@ -259,18 +295,14 @@
 			
 			
 					<tr>
-					
+					<td>
+							 <input name="select" type="checkbox" id="checkbox1" value="CMP101-1"/>
+						</td>
 						
 					<td>
-							${bh.getStudent().getName()}
+								${bh.FullSectionNo}
 						</td>
-						
-						<td>
-							${bh.getSection().getFullSectionNo()}
-						</td>
-						
-				
-					<tr class="error">
+			<tr class="error">
 						<td>
 							
 						</td>
@@ -341,7 +373,7 @@
 					</tr>
 				</tbody>
 			</table>
-			</c:forEach>			
+		</c:forEach>
 	<%-- <div class="row-fluid">
 		<div class="span12">
 		
