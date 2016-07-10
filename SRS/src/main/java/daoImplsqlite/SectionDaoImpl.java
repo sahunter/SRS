@@ -19,6 +19,7 @@ import model.Professor;
 import model.Section;
 import model.Student;
 import model.TranscriptEntry;
+import model.User;
 import util.DBUtil;
 
 public class SectionDaoImpl implements SectionDao{
@@ -140,21 +141,6 @@ public class SectionDaoImpl implements SectionDao{
 					}
 			return sections;
 	}
-	public Section findselectsection(String semester,String select) {
-		HashMap<String, Section> sections = new SectionDaoImpl().findBySemester(semester);
-		 Set<HashMap.Entry<String, Section>> set=sections.entrySet();    
-			Section selectsection = new Section(0, (char) 0, null, null, null, 0);
-			for (Iterator<Entry<String, Section>> iterator = set.iterator(); iterator.hasNext();) {  
-				HashMap.Entry<String, Section> entry = (HashMap.Entry<String, Section>) iterator.next();  
-		            String key=entry.getKey();  
-		            Section value=entry.getValue(); 
-		            if(select.equals(key)){
-		            		selectsection= value;
-		            }
-		}
-			return selectsection;
-	}
-	
 	
 	@Override
     public HashMap<String, Section> findsection() {
@@ -468,6 +454,127 @@ public class SectionDaoImpl implements SectionDao{
 				e.printStackTrace();
 			}
 			
+	}
+	@Override
+	public HashMap<String, Section> findByName(User user) {
+		// 根据semester获取相应的section数据,此处直接手动给出section数据
+		Connection Conn = DBUtil.getSqliteConnection();
+		HashMap<String, Section> sections = new HashMap<String, Section>();
+		HashMap<String, Course> allCourses = new CourseDaoImpl().findAll();
+		String sql = "select * from Section ,Transcript where  name=? and FullSectionNo=sectionID";
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+			pstmt.setString(1,user.getUserName());
+			rs = pstmt.executeQuery();
+		
+						while(rs.next()){
+							          Set<HashMap.Entry<String, Course>> set=allCourses.entrySet();    
+						                 for (Iterator<Entry<String, Course>> iterator = set.iterator(); iterator.hasNext();) {  
+						                	 HashMap.Entry<String, Course> entry = (HashMap.Entry<String, Course>) iterator.next();  
+						                       String key=entry.getKey();  
+					                            Course value=entry.getValue(); 
+					                            if(rs.getString("representedCourse").equals(key)){
+					                	        Section sec;
+											    sec = new Section(rs.getInt("sectionNo"),rs.getString("dayOfWeek").charAt(0), rs.getString("timeOfDay"), value ,rs.getString("room"),rs.getInt("seatingCapacity"));
+					                            sections.put(value.getCourseNo() + "-" + sec.getSectionNo(), sec);
+					                }
+					                }
+                         }
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}  if(rs != null){
+						try {
+							rs.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						Conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			return sections;
+	}
+	public Section findselectsection(String semester,String select) {
+		HashMap<String, Section> sections = new SectionDaoImpl().findBySemester(semester);
+		 Set<HashMap.Entry<String, Section>> set=sections.entrySet();    
+			Section selectsection = new Section(0, (char) 0, null, null, null, 0);
+			for (Iterator<Entry<String, Section>> iterator = set.iterator(); iterator.hasNext();) {  
+				HashMap.Entry<String, Section> entry = (HashMap.Entry<String, Section>) iterator.next();  
+		            String key=entry.getKey();  
+		            Section value=entry.getValue(); 
+		            if(select.equals(key)){
+		            		selectsection= value;
+		            }
+		}
+			return selectsection;
+	}
+	@Override
+	public HashMap<String, Section> findsectionByProfessor(User user) {
+		// TODO Auto-generated method stub
+		
+		Connection Conn = DBUtil.getSqliteConnection();
+		HashMap<String, Section> sections = new HashMap<String, Section>();
+		HashMap<String, Course> allCourses = new CourseDaoImpl().findAll();
+		String sql = "select * from Section  where  professor=? ";
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+			pstmt.setString(1,user.getUserName());
+			rs = pstmt.executeQuery();
+		
+						while(rs.next()){
+							          Set<HashMap.Entry<String, Course>> set=allCourses.entrySet();    
+						                 for (Iterator<Entry<String, Course>> iterator = set.iterator(); iterator.hasNext();) {  
+						                	 HashMap.Entry<String, Course> entry = (HashMap.Entry<String, Course>) iterator.next();  
+						                       String key=entry.getKey();  
+					                            Course value=entry.getValue(); 
+					                            if(rs.getString("representedCourse").equals(key)){
+					                	        Section sec;
+											    sec = new Section(rs.getInt("sectionNo"),rs.getString("dayOfWeek").charAt(0), rs.getString("timeOfDay"), value ,rs.getString("room"),rs.getInt("seatingCapacity"));
+					                            sections.put(value.getCourseNo() + "-" + sec.getSectionNo(), sec);
+					                }
+					                }
+                         }
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}  if(rs != null){
+						try {
+							rs.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						Conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			return sections;
 	}
 	
 	

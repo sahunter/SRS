@@ -80,7 +80,7 @@ public class PersonDaoImpl implements PersonDao {
 		
 		return professors;
 	}
-
+	
 	@Override
 	public HashMap<String, Student> findAllStudents() {
 		// TODO Auto-generated method stub

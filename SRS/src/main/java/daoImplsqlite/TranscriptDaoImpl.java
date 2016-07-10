@@ -334,5 +334,80 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		return transcript;
 	}
 
-	
+	@Override
+	public HashMap<String, TranscriptEntry> searchTranscriptByProfessor(User user) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		HashMap<String, TranscriptEntry> personnaltrancript = new TranscriptDaoImpl().getTranscript();
+		HashMap<String, Section> professorsection=new  SectionDaoImpl().findsectionByProfessor( user);
+		HashMap<String, TranscriptEntry> transcript=new HashMap<String, TranscriptEntry>();
+		 Set<HashMap.Entry<String, TranscriptEntry>> set1=personnaltrancript.entrySet();    	
+			for (Iterator<Entry<String, TranscriptEntry>> iterator1 = set1.iterator(); iterator1.hasNext();) {  
+		    	   HashMap.Entry<String, TranscriptEntry> entry1 = (HashMap.Entry<String, TranscriptEntry>) iterator1.next();  
+		            TranscriptEntry value1=entry1.getValue(); 
+		           /* TranscriptEntry transcriptentry = new TranscriptEntry(null, null, null);
+	            	transcriptentry.setTranscript(value1);*/
+		            Set<HashMap.Entry<String, TranscriptEntry>> set=personnaltrancript.entrySet();    	
+					for (Iterator<Entry<String, TranscriptEntry>> iterator = set1.iterator(); iterator1.hasNext();) {  
+				    	   HashMap.Entry<String, TranscriptEntry> entry = (HashMap.Entry<String, TranscriptEntry>) iterator1.next();  
+				            TranscriptEntry value=entry1.getValue(); 
+		            if(value1.getSection().equals(value)){
+		            	Section section;
+		            	 section=value1.getSection();
+		            	 transcript.put(user.getUserName()+ "-" + section.getFullSectionNo(), value1);	 	
+		            }
+		
+		            }
+		
+		
+	}
+
+			return transcript;
+}
+	@Override
+	public void updateTranscript(String sectionID, String grade) {
+		Connection Conn = DBUtil.getSqliteConnection();
+		String sql = "update Transcript set grade=? where  sectionID=?";
+		PreparedStatement stmt=null;
+		try {
+			stmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		    try {
+		    	stmt.setString(1, grade);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    try {
+		    	stmt.setString(2, sectionID);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
 }

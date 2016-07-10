@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="utf-8"%>
-     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="ISO-8859-1"%>
+      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,10 +8,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2 class="text-center">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+		
+		<h1 class="text-center">
 			<a href="index.jsp">	SRS</a>
-			</h2>
-			 <div class="row-fluid">
+			</h1>
+		</div>
+	</div>
+	<!-- <div class="row-fluid">
+		<div class="span12">
+			<form class="form-search">
+				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">查找</button>
+			</form>
+		</div>
+	</div> -->
+	 <div class="row-fluid">
 		<div class="span12">
 		
 		
@@ -41,7 +54,7 @@
 						<th>
 							representedCourse
 						</th>	
-						
+						 
 					
 						<!-- 	<th>
 							operation
@@ -83,7 +96,7 @@
 							${bh.representedCourse}
 						</td> 
 					
-						
+				
 					<tr class="error">
 						<td>
 							
@@ -159,40 +172,8 @@
 				</tbody>
 			</table>
 			</c:forEach>	
- <form id="formid" method = "post"  action = "../deleteEnrollCourseServlet" >   
-  <table>
-           <tbody><tr>
-               <td>
-                   <label for="textbox1">sectionID</label>
-               </td>
-               <td>
-                   <div class="l-text" style="width: 178px;"><input id="textbox1" name="sectionID" type="text" class="ui-textbox l-text-field" validate="{required:true}" ligeruiid="textbox1" style="width: 174px;"><div class="l-text-l"></div><div class="l-text-r"></div></div>
-               </td>
-           </tr>
-           <tr>
-               <td>
-                   <label for="textbox1">name</label>
-               </td>
-               <td>
-                   <div class="l-text" style="width: 178px;"><input id="textbox1" name="name" type="text" class="ui-textbox l-text-field" validate="{required:true}" ligeruiid="textbox1" style="width: 174px;"><div class="l-text-l"></div><div class="l-text-r"></div></div>
-               </td>
-           </tr>
-         
-           <tr>
-    
-               </tr>
-               <tr>
-               <td> 
-                     <!--  <input value="valid" type="button" onclick="valid()">
-                   <input value="setData" type="button" onclick="setData()">
-                   <input value="getData" type="button" onclick="getData()"> -->
-                  <!--  <input value="jquery获取数据" type="button" onclick="submitForm()"> -->
-                      <input  type="submit" value="deleteEnrollCourse">
-                 
-               </td>
-           </tr>
-       </tbody></table>
-    
- </form>
+				
+				</div>
+</div>
 </body>
 </html>

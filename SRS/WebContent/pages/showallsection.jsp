@@ -72,9 +72,7 @@
 						<th>
 							representedCourse
 						</th>	
-						    <th>
-						professor
-						</th>
+						   
 					
 						<!-- 	<th>
 							operation
@@ -116,9 +114,7 @@
 							${bh.representedCourse}
 						</td> 
 					
-						<td>
-						${bh.instructor}
-						</td> 
+					
 				
 					<tr class="error">
 						<td>

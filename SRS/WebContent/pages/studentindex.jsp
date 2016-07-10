@@ -15,7 +15,7 @@
 			<form  name="form5" method="post">
 		    <input name="searchCourseServlet" type="button"  id="searchCourseServlet"  class="Common"   onclick="form5.action='../searchCourseServlet';form5.submit()"  value="searchCourse"/>	
 			<input name="searchAllSectionServlet" type="button"  id="searchAllSectionServlet"  class="Common"   onclick="form5.action='../searchAllSectionServlet';form5.submit()"  value="searchAllSection"/>
-			<input name="searchSlectedSectionServlet" type="button"  id="searchSlectedSectionnServlet"  class="Common"   onclick="form5.action='../searchSlectedSectionServlet';form5.submit()"  value="searchSlectedSection"/>
+			<input name="searchSlectedSectionServlet" type="button"  id="searchSlectedSectionnServlet"  class="Common"   onclick="form5.action='../searchEnrollCourse';form5.submit()"  value="searchSlectedSection"/>
 			<input  name="searchTranscriptServlet" type="button"  id="searchTranscriptServlet"  class="Common"   onclick="form5.action='../searchTranscriptServlet';form5.submit()"  value="searchTranscript"/>
             <input  name="searchStudentInformation" type="button"  id="searchStudentInformation"  class="Common"   onclick="form5.action='../searchStudentInformationServlet';form5.submit()"  value="searchStudentInformation"/>
 			 </form>		 

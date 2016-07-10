@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+       <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,41 +8,44 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2> <a href="admin.jsp">SRS</a></h2>
-<h3>professor information</h3>
+<h2> <a href="studentindex.jsp">SRS</a></h2>
+<h3>transcript information</h3>
 	<table class="table">
 				<thead>
-					<tr>		
-						<th>
-							name
-						</th>
-						<th>
-							sectionID
-						</th>
-						<th>
-							grade
-						</th>
-					</tr>
+						
+						
+					
+							
+						
+					
 				</thead>
 				<tbody>
-				<c:forEach var="bh" items="${requestScope.transcripts}">
+			
 						<%-- <%
 			 	for (int i = 0; i < req.getAttribute("professors").size(); i++) { 
-			 		Professor bh = professors.get(i);%> --%>	
+			 		Professor bh = professors.get(i);%> --%>
+			 		<tr>
+			 		<td>section</td>
+			 		<c:forEach var="bh" items="${requestScope.keys}">
+					<td>
+						${bh}
+						</td>
+						</c:forEach> 
+		
+				
+						</tr>
 				<tr>
-						<td>
-						${bh.name}
-						</td>
-						<td>
-						${bh.sectionID}
-						</td>
+					<td>grade</td>	
+							<c:forEach var="bh" items="${requestScope.transcript}">
 						<td>
 						${bh.grade}
 						</td>
+							</c:forEach> 
+		
 					</tr>
+					
 					<%-- <% }%> --%>
-					</c:forEach> 
-				
+					
 					
 		
 				</tbody>

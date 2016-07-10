@@ -12,8 +12,8 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<form  name="form5" method="post">	
-			<input name="searchSectionServlet" type="button"  id="searchSectionServlet"  class="Common"   onclick="form5.action='../searchSectionServlet';form5.submit()"  value="searchSection"/>
-			<input  name="searchTranscriptServlet" type="button"  id=searchTranscriptServlet"  class="Common"   onclick="form5.action='../searchTranscriptServlet';form5.submit()"  value="searchTranscript"/>
+			<input name="searchSectionServlet" type="button"  id="searchSectionServlet"  class="Common"   onclick="form5.action='../searchProfessorSectionServlet';form5.submit()"  value="searchSection"/>
+			<input  name="searchTranscriptServlet" type="button"  id=searchTranscriptServlet"  class="Common"   onclick="form5.action='../searchTranscriptByProfessorServlet';form5.submit()"  value="searchTranscript"/>
             <input  name="searchProfessorServlet" type="button"  id="searchProfessorServlet"  class="Common"   onclick="form5.action='../searchProfessorServlet';form5.submit()"  value="searchProfessorinformation"/>
 			 </form>		 
 			 

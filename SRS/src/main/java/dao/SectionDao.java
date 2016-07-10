@@ -19,6 +19,8 @@ public interface SectionDao {
 	void deleteSection(String FullSectionNo);
 	void addSection(String fullSectionNo, Section section, String representedCourse);
 	void updateSection(String fullSectionNo, Section section, String representedCourse);
+	HashMap<String, Section> findByName(User user);
+	public HashMap<String, Section> findsectionByProfessor(User user);
 	
 		
 	 

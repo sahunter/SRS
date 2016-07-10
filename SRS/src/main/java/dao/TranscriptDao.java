@@ -16,4 +16,6 @@ public interface TranscriptDao {
 	public HashMap<String, TranscriptEntry> findEnrollcourseByStudent(User user);
 	void deleteTranscript(String name,String FullSectoinNo);
 	HashMap<String, TranscriptEntry> searchTranscript(User user);
+	HashMap<String, TranscriptEntry> searchTranscriptByProfessor(User user);
+	void updateTranscript(String sectionID, String grade);
 }
