@@ -7,24 +7,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h2> <a href="admin.jsp">SRS</a></h2>
+<h3>prerequisite information management</h3>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
 	<form  name="form2"  method="post">
-			<input name="add1" type="button"  id="add1"  class="Common"  onclick="form2.action='../addCourseServlet';form2.submit()"  value="add"/>		
-			<input  name="update1" type="button"  id="update1"  class="Common"   onclick="form2.action='../updateCourseServlet';form2.submit()"  value="update"/>
-			<input  name="delete1" type="button"  id="delete1"  class="Common"   onclick="form2.action='../deleteCourseServlet';form2.submit()"  value="delete"/>											
+			<input name="add1" type="button"  id="add1"  class="Common"  onclick="form2.action='../addPrerequisiteServlet';form2.submit()"  value="add"/>		
+			<input  name="update1" type="button"  id="update1"  class="Common"   onclick="form2.action='../updatePrerequisiteServlet';form2.submit()"  value="update"/>
+			<input  name="delete1" type="button"  id="delete1"  class="Common"   onclick="form2.action='../deletePrerequisiteServlet';form2.submit()"  value="delete"/>											
 			<table class="table">
 				<thead>
 					<tr>							
 						<th>
-							courseNo
+							ID
 						</th>
 						<th>
-							courseName
+							presentcourse
 						</th>
 						<th>
-							credits
+							prerequisite
 						</th>
 						
 					</tr>

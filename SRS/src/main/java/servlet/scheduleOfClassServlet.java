@@ -24,8 +24,7 @@ import model.Course;
 import model.Section;
 import model.TranscriptEntry;
 import service.ScheduleOfClassesService;
-import service.dto.AjaxResult;
-import service.dto.ListBoxDto;
+
 
 /**
  * Servlet implementation class scheduleOfClassServlet

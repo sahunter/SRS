@@ -17,8 +17,6 @@
 	rel="stylesheet">
 	
 </head>
-
-
 <body>
 
 <%									//?????????????
@@ -31,7 +29,7 @@
 		<div class="span12">
 		
 		<h1 class="text-center">
-				<a href="index.jsp">学生选课系统</a>
+				<a href="index.jsp">SRS</a>
 			</h1>
 		</div>
 	</div>

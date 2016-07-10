@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
-import model.User;
-import service.loginService;
-
 /**
- * Servlet implementation class loginServlet
+ * Servlet implementation class searchProfessorInformationServlet
  */
-@WebServlet("/loginServlet")
-public class loginServlet extends HttpServlet {
+@WebServlet("/searchProfessorInformationServlet")
+public class searchProfessorInformationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginServlet() {
+    public searchProfessorInformationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,19 +35,7 @@ public class loginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);	
-		String relatedtype = request.getParameter("select");
-		String username = request.getParameter("username");
-	    String password = request.getParameter("password");
-	    request.getSession().setAttribute("username", username);
-	    request.getSession().setAttribute("password", password);
-	    String page = null;
-	if (loginService.checklogin(username,password)&&relatedtype.equals("Student")){page ="pages/studentindex.jsp";}
-	else if (loginService.checklogin(username,password)&&relatedtype.equals("Professor")){page ="pages/professorindex.jsp";}
-	else if (loginService.checklogin(username,password)&&relatedtype.equals("admin")){page ="pages/admin.jsp";}
-		
-		else{page ="pages/login.jsp";}
-	    response.sendRedirect(page);
+		doGet(request, response);
 	}
 
 }

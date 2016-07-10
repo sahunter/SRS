@@ -139,7 +139,7 @@ public class CourseDaoImpl implements CourseDao {
 		}
 		return prerequisites;
 	}
-	@Override
+/*	@Override
 	public List<Course> searchCourse(Course course) {
 		Connection Conn = DBUtil.getSqliteConnection();
 		String sql = "select courseNo,courseName ,credits from Course ";
@@ -191,7 +191,7 @@ public class CourseDaoImpl implements CourseDao {
 				e.printStackTrace();
 			}
 			return courses;
-		}
+		}*/
 	@Override
 	public void addCourse(Course course) {
 		Connection Conn = DBUtil.getSqliteConnection();
@@ -343,6 +343,66 @@ public class CourseDaoImpl implements CourseDao {
 			
 	}
 	@Override
+	public HashMap<String, Course> findPrerequisiteByCourse(String courseNo) {
+		// TODO Auto-generated method stub
+		Connection Conn = DBUtil.getSqliteConnection();
+		HashMap<String,Course> prerequisites = new HashMap<String, Course>();
+		String sql= "select courseNo, courseName,credits,presentcourse from Course ,Prerequisite where courseNo=prerequisite and presentcourse=?";;
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+		try {
+			pstmt = Conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+		    	pstmt.setString(1, courseNo);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        try {
+			 rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			while(rs.next()){
+				Course  prerequisitecourse;
+				prerequisitecourse=new Course(rs.getString("courseNo"), rs.getString("courseName"), Double.valueOf(rs.getString("credits")));
+				prerequisites.put(rs.getString("presentcourse"), prerequisitecourse);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(rs != null){
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return prerequisites;
+	}
+	@Override
 	public void addPrerequisite(String ID,String presentcourse,String  prerequisite) {
 		Connection Conn = DBUtil.getSqliteConnection();
 		String sql = "INSERT INTO Prerequisite(ID,presentcourse,prerequisite) VALUES(?,?,?)";
@@ -488,6 +548,7 @@ public class CourseDaoImpl implements CourseDao {
 			}
 			
 	}
+
 }
 	
 /*	

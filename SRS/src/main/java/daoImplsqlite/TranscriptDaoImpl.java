@@ -94,14 +94,13 @@ public class TranscriptDaoImpl implements TranscriptDao{
 						       return transcriptEntries;
 	                }*/
 	@Override
-	public HashMap<String,TranscriptEntry> getTranscript() {
+	public HashMap<String,TranscriptEntry> getTranscript(){
 		// TODO Auto-generated method stub
 		Connection Conn = DBUtil.getSqliteConnection();
 		HashMap<String, TranscriptEntry> Totaltranscript = new HashMap<String, TranscriptEntry>();
 	//	HashMap<String, TranscriptEntry> transcript = new HashMap<String, TranscriptEntry>();
 		HashMap<String, Section> sections = new SectionDaoImpl().findAllsection();
 		HashMap<String, Student> students = new PersonDaoImpl().findAllStudents();
-	
 		String sql = "select * from Transcript";
 		PreparedStatement pstmt=null;
 		try {
@@ -112,7 +111,7 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		}	ResultSet rs = null;
 		try {
 			rs = pstmt.executeQuery();
-		} catch (SQLException e1) {
+		} catch (SQLException e1)	 {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}	  
@@ -324,7 +323,7 @@ public class TranscriptDaoImpl implements TranscriptDao{
 		            TranscriptEntry value1=entry1.getValue(); 
 		           /* TranscriptEntry transcriptentry = new TranscriptEntry(null, null, null);
 	            	transcriptentry.setTranscript(value1);*/
-		            if(value1.getGrade()!=""){
+		            if(value1.getGrade()!=""&&value1.getGrade()!=null){
 		            	Section section;
 		            	 section=value1.getSection();
 		            	 transcript.put(user.getUserName()+ "-" + section.getFullSectionNo(), value1);	 	

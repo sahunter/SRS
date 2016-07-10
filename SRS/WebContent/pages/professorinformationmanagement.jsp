@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>professor information management</h1>
 <%-- <% HttpServletRequest req = (HttpServletRequest) request; 
   ArrayList<Professor>  professor=req.getAttribute("professors");%> --%>
 <div class="container-fluid">

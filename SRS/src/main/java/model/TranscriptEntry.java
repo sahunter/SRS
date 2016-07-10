@@ -18,9 +18,7 @@ public class TranscriptEntry {
 		this.setStudent(s);
 		this.setSection(se);
 		this.setGrade(grade);
-
 		// Obtain the Student's transcript ...
-
 		Transcript t = s.getTranscript();
 
 		// ... and then link the Transcript and the TranscriptEntry

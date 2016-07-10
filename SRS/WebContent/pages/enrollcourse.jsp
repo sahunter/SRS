@@ -29,9 +29,9 @@
 	<div class="row-fluid">
 		<div class="span12">
 		
-		<h1 class="text-center">
-					<a href="index.jsp">选课系统</a>
-			</h1>
+		<h3 class="text-center">
+					<a href="index.jsp">SRS</a>
+			</h3>
 		</div>
 	</div>
 	<!-- <div class="row-fluid">
@@ -44,7 +44,7 @@
 	 <div class="row-fluid">
 		<div class="span12">
 		
-		 	<form  name="form"  method="post">
+		<!--  	<form  name="form"  method="post">
 	
 			<input  name="enroll" type="button"  id="enroll"  class="Common"   onclick="form.action='../enrollCourseServlet';form.submit()"  value="选课"/>
 					
@@ -58,12 +58,12 @@
 						section
 						</th>
 						
-						<!-- 	<th>
+							<th>
 							operation
 						</th>
 						<th>
 							operation
-						</th>		 -->
+						</th>		
 					</tr>
 				</thead>
 				<tbody>
@@ -94,9 +94,11 @@
 				</tbody>
 			</table>
 			
-			</form>
+			</form> -->
 			<form>
-				<c:forEach var="bh" items="${requestScope.keys}">
+				<form  name="form"  method="post">
+	
+			<input  name="enroll" type="button"  id="enroll"  class="Common"   onclick="form.action='../enrollCourseServlet';form.submit()"  value="选课"/>
 				<table class="table">
 				<thead>
 					<tr>
@@ -116,6 +118,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="bh" items="${requestScope.keys}">
 					<tr>
 						<td>
 							 <input name="select" type="checkbox" id="checkbox1" value="${bh}"/>
@@ -124,12 +127,13 @@
 							${bh}
 						</td>	
 						
-					</tr>		
+					</tr>	
+					</c:forEach>	
 				</tbody>
 			</table>
-			</c:forEach>
+			
 			</form>
-			<c:forEach var="bh" items="${requestScope.secs}">
+			
 			<table class="table">
 				<thead>
 					<tr>
@@ -165,6 +169,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="bh" items="${requestScope.secs}">
 				<tr>
 					<%-- <td>
 							 <input name="select" type="checkbox" id="checkbox1" value="${bh.FullSectionNo}"/>
@@ -195,7 +200,8 @@
 						<td>
 							${bh.representedCourse}
 						</td> 
-				
+				</tr>
+				</c:forEach>
 					<tr class="error">
 						<td>
 							
@@ -267,10 +273,10 @@
 					</tr>
 				</tbody>
 			</table>
-			</c:forEach>	
-			<h1>刚选的课程	</h1>
-			<h2><%=request.getAttribute("alert")%></h2>
-		   	<c:forEach var="bh" items="${requestScope.section}">   
+				
+			<h3>刚选的课程	</h3>
+			<h3><%=request.getAttribute("alert")%></h3>
+		   	
 			<table class="table">
 				<thead>
 					<tr>
@@ -293,7 +299,7 @@
 				<tbody>
 		
 			
-			
+			<c:forEach var="bh" items="${requestScope.section}">   
 					<tr>
 					<td>
 							 <input name="select" type="checkbox" id="checkbox1" value="CMP101-1"/>
@@ -302,6 +308,8 @@
 					<td>
 								${bh.FullSectionNo}
 						</td>
+						</tr>
+						</c:forEach>
 			<tr class="error">
 						<td>
 							
@@ -373,7 +381,7 @@
 					</tr>
 				</tbody>
 			</table>
-		</c:forEach>
+		
 	<%-- <div class="row-fluid">
 		<div class="span12">
 		

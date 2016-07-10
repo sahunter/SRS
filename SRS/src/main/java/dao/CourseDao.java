@@ -11,8 +11,7 @@ public interface CourseDao {
 	
 	public HashMap<String, Course> findAll();
 	public HashMap<String, Course> findPrerequisite();
-	List<Course> searchCourse(Course course);
-
+	
 	void addCourse(Course course);
 	void updateCourse(Course course);
 	void deleteCourse(Course course);
@@ -20,4 +19,6 @@ public interface CourseDao {
 	void addPrerequisite(String ID, String presentcourse, String prerequisite);
 	void updatePrerequisite(String ID, String presentcourse, String prerequisite);
 	void deletePrerequisite(String ID, String presentcourse, String prerequisite1);
+	HashMap<String, Course> findPrerequisiteByCourse(String courseNo);
+	
 }

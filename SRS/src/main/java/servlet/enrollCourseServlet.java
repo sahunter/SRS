@@ -26,7 +26,7 @@ import model.Student;
 import model.Transcript;
 import model.TranscriptEntry;
 import model.User;
-import service.dto.AjaxResult;
+
 
 /**
  * Servlet implementation class enrollCourseServlet
