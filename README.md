@@ -1,9 +1,9 @@
 # SRS
-![image](https://github.com/sahunter/SRS/blob/master/img/SRS-classdiagram.JPG)
+![image](https://github.com/sahunter/SRS/blob/master/img/classdiagram.JPG)
 
-![image](https://github.com/sahunter/SRS/blob/master/img/SRS-studentsequence.JPG)
+![image](https://github.com/sahunter/SRS/blob/master/img/studentsequence.JPG)
 
-![image](https://github.com/sahunter/SRS/blob/master/img/SRS-professorsequence.JPG)
+![image](https://github.com/sahunter/SRS/blob/master/img/professorsequence.JPG)
 
 ![image](https://github.com/sahunter/SRS/blob/master/img/SRST-1.JPG)
 
