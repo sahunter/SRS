@@ -4,6 +4,8 @@
 ![image](https://github.com/sahunter/SRS/blob/master/img/studentsequence.JPG)
 
 ![image](https://github.com/sahunter/SRS/blob/master/img/professorsequence.JPG)
+![image](https://github.com/sahunter/SRS/blob/master/img/system.JPG)
+
 
 ![image](https://github.com/sahunter/SRS/blob/master/img/SRST-1.JPG)
 
